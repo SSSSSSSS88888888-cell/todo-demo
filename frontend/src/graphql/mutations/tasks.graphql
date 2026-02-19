@@ -1,0 +1,52 @@
+mutation CreateTask($input: CreateTaskInput!) {
+  createTask(input: $input) {
+    id
+    title
+    description
+    priority
+    status
+    startDate
+    dueDate
+    subjectId
+    unitId
+    subject {
+      id
+      name
+      color
+    }
+    unit {
+      id
+      name
+    }
+  }
+}
+
+mutation UpdateTask($id: String!, $input: UpdateTaskInput!) {
+  updateTask(id: $id, input: $input) {
+    id
+    title
+    description
+    priority
+    status
+    startDate
+    dueDate
+    completedAt
+    subjectId
+    unitId
+    subject {
+      id
+      name
+      color
+    }
+    unit {
+      id
+      name
+    }
+  }
+}
+
+mutation DeleteTask($id: String!) {
+  deleteTask(id: $id) {
+    id
+  }
+}

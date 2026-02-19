@@ -1,0 +1,14 @@
+query GetSubjects {
+  subjects {
+    id
+    name
+    color
+    order
+    units {
+      id
+      name
+      order
+      subjectId
+    }
+  }
+}

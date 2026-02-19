@@ -1,0 +1,59 @@
+query GetTasks($filter: TaskFilterInput) {
+  tasks(filter: $filter) {
+    id
+    title
+    description
+    priority
+    status
+    startDate
+    dueDate
+    completedAt
+    subjectId
+    unitId
+    subject {
+      id
+      name
+      color
+    }
+    unit {
+      id
+      name
+    }
+    createdAt
+    updatedAt
+  }
+}
+
+query GetTodayTasks {
+  todayTasks {
+    id
+    title
+    description
+    priority
+    status
+    startDate
+    dueDate
+    subject {
+      id
+      name
+      color
+    }
+    unit {
+      id
+      name
+    }
+  }
+}
+
+query GetUpcomingDeadlines($withinHours: Float!) {
+  upcomingDeadlines(withinHours: $withinHours) {
+    id
+    title
+    dueDate
+    priority
+    subject {
+      name
+      color
+    }
+  }
+}

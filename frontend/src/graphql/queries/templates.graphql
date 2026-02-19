@@ -1,0 +1,17 @@
+query GetTemplates {
+  templates {
+    id
+    name
+    description
+    items {
+      id
+      title
+      subjectName
+      unitName
+      priority
+      dayOffset
+      durationDays
+    }
+    createdAt
+  }
+}

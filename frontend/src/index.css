@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Noto Sans JP', system-ui, sans-serif;
+  @apply bg-gray-50 text-gray-900 antialiased;
+}
+
+/* ── Animations ── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes progressFill {
+  from { width: 0; }
+}
+
+@keyframes overlayFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modalSlideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in { animation: fadeIn 0.2s ease-out; }
+.animate-slide-up { animation: slideUp 0.3s ease-out both; }
+.animate-scale-in { animation: scaleIn 0.2s ease-out; }
+.animate-progress { animation: progressFill 0.6s ease-out; }
+.animate-overlay { animation: overlayFadeIn 0.15s ease-out; }
+.animate-modal { animation: modalSlideUp 0.25s ease-out; }
+
+/* Stagger children */
+.stagger > * { animation: slideUp 0.3s ease-out both; }
+.stagger > *:nth-child(1) { animation-delay: 0ms; }
+.stagger > *:nth-child(2) { animation-delay: 50ms; }
+.stagger > *:nth-child(3) { animation-delay: 100ms; }
+.stagger > *:nth-child(4) { animation-delay: 150ms; }
+.stagger > *:nth-child(5) { animation-delay: 200ms; }
+.stagger > *:nth-child(6) { animation-delay: 250ms; }
+
+/* ── Component classes ── */
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center bg-gray-900 text-white px-4 py-2 rounded-lg
+           hover:bg-gray-800 active:bg-gray-700 transition-colors duration-150 text-sm font-medium;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center bg-white text-gray-700 px-4 py-2 rounded-lg
+           hover:bg-gray-50 active:bg-gray-100 transition-colors duration-150 text-sm font-medium
+           border border-gray-200;
+  }
+  .btn-danger {
+    @apply inline-flex items-center justify-center bg-red-600 text-white px-4 py-2 rounded-lg
+           hover:bg-red-700 active:bg-red-800 transition-colors duration-150 text-sm font-medium;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center text-gray-500 px-3 py-1.5 rounded-lg
+           hover:bg-gray-100 hover:text-gray-700 transition-colors duration-150 text-sm;
+  }
+  .card {
+    @apply bg-white rounded-xl border border-gray-200/60 p-5;
+  }
+  .input-field {
+    @apply w-full border border-gray-200 rounded-lg px-3 py-2 text-sm
+           focus:outline-none focus:ring-2 focus:ring-gray-900/10 focus:border-gray-400
+           transition-all duration-150 bg-white placeholder:text-gray-400;
+  }
+  .badge {
+    @apply inline-flex items-center text-xs px-2 py-0.5 rounded-full font-medium;
+  }
+  .section-title {
+    @apply text-sm font-semibold text-gray-900 tracking-tight;
+  }
+  .section-subtitle {
+    @apply text-xs text-gray-500;
+  }
+}
+
+/* ── Scrollbar ── */
+.custom-scrollbar::-webkit-scrollbar { width: 4px; height: 4px; }
+.custom-scrollbar::-webkit-scrollbar-track { @apply bg-transparent; }
+.custom-scrollbar::-webkit-scrollbar-thumb { @apply bg-gray-200 rounded-full; }
+.custom-scrollbar::-webkit-scrollbar-thumb:hover { @apply bg-gray-300; }
+
+.gantt-scroll::-webkit-scrollbar { height: 6px; }
+.gantt-scroll::-webkit-scrollbar-track { @apply bg-gray-50 rounded; }
+.gantt-scroll::-webkit-scrollbar-thumb { @apply bg-gray-200 rounded-full hover:bg-gray-300; }

@@ -1,0 +1,32 @@
+mutation CreateTemplate($input: CreateTemplateInput!) {
+  createTemplate(input: $input) {
+    id
+    name
+    description
+    items {
+      id
+      title
+      subjectName
+      unitName
+      priority
+      dayOffset
+      durationDays
+    }
+  }
+}
+
+mutation DeleteTemplate($id: String!) {
+  deleteTemplate(id: $id) {
+    id
+  }
+}
+
+mutation ApplyTemplate($input: ApplyTemplateInput!) {
+  applyTemplate(input: $input) {
+    id
+    title
+    subject {
+      name
+    }
+  }
+}

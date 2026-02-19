@@ -1,0 +1,103 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String     @id @default(uuid())
+  email     String     @unique
+  password  String
+  name      String
+  tasks     Task[]
+  templates Template[]
+  streak    Streak?
+  createdAt DateTime   @default(now())
+}
+
+model Subject {
+  id    String @id @default(uuid())
+  name  String @unique
+  color String
+  order Int
+  units Unit[]
+  tasks Task[]
+}
+
+model Unit {
+  id        String  @id @default(uuid())
+  name      String
+  order     Int
+  subjectId String
+  subject   Subject @relation(fields: [subjectId], references: [id])
+  tasks     Task[]
+
+  @@unique([subjectId, name])
+}
+
+enum Priority {
+  HIGH
+  MEDIUM
+  LOW
+}
+
+enum TaskStatus {
+  TODO
+  IN_PROGRESS
+  DONE
+}
+
+model Task {
+  id          String     @id @default(uuid())
+  title       String
+  description String?
+  priority    Priority   @default(MEDIUM)
+  status      TaskStatus @default(TODO)
+  startDate   DateTime
+  dueDate     DateTime
+  completedAt DateTime?
+  userId      String
+  user        User       @relation(fields: [userId], references: [id])
+  subjectId   String
+  subject     Subject    @relation(fields: [subjectId], references: [id])
+  unitId      String?
+  unit        Unit?      @relation(fields: [unitId], references: [id])
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model Template {
+  id          String         @id @default(uuid())
+  name        String
+  description String?
+  userId      String
+  user        User           @relation(fields: [userId], references: [id])
+  items       TemplateItem[]
+  createdAt   DateTime       @default(now())
+}
+
+model TemplateItem {
+  id           String   @id @default(uuid())
+  title        String
+  description  String?
+  subjectName  String
+  unitName     String?
+  priority     Priority @default(MEDIUM)
+  dayOffset    Int
+  durationDays Int      @default(1)
+  templateId   String
+  template     Template @relation(fields: [templateId], references: [id], onDelete: Cascade)
+}
+
+model Streak {
+  id                 String    @id @default(uuid())
+  userId             String    @unique
+  user               User      @relation(fields: [userId], references: [id])
+  currentStreak      Int       @default(0)
+  longestStreak      Int       @default(0)
+  lastCompletionDate DateTime?
+  updatedAt          DateTime  @updatedAt
+}

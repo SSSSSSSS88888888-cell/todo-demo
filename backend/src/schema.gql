@@ -1,0 +1,178 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input ApplyTemplateInput {
+  startDate: DateTime!
+  templateId: String!
+}
+
+type AuthPayload {
+  token: String!
+  user: UserModel!
+}
+
+input CreateTaskInput {
+  description: String
+  dueDate: DateTime!
+  priority: Priority! = MEDIUM
+  startDate: DateTime!
+  subjectId: String!
+  title: String!
+  unitId: String
+}
+
+input CreateTemplateInput {
+  description: String
+  items: [TemplateItemInput!]!
+  name: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+type Mutation {
+  applyTemplate(input: ApplyTemplateInput!): [TaskModel!]!
+  createTask(input: CreateTaskInput!): TaskModel!
+  createTemplate(input: CreateTemplateInput!): TemplateModel!
+  deleteTask(id: String!): TaskModel!
+  deleteTemplate(id: String!): TemplateModel!
+  login(input: LoginInput!): AuthPayload!
+  signup(input: SignupInput!): AuthPayload!
+  updateTask(id: String!, input: UpdateTaskInput!): TaskModel!
+}
+
+enum Priority {
+  HIGH
+  LOW
+  MEDIUM
+}
+
+type Query {
+  me: UserModel!
+  myStreak: StreakModel!
+  subject(id: String!): SubjectModel
+  subjects: [SubjectModel!]!
+  task(id: String!): TaskModel!
+  tasks(filter: TaskFilterInput): [TaskModel!]!
+  template(id: String!): TemplateModel
+  templates: [TemplateModel!]!
+  todayTasks: [TaskModel!]!
+  unitsBySubject(subjectId: String!): [UnitModel!]!
+}
+
+input SignupInput {
+  email: String!
+  name: String!
+  password: String!
+}
+
+type StreakModel {
+  currentStreak: Int!
+  id: ID!
+  lastCompletionDate: DateTime
+  longestStreak: Int!
+  updatedAt: DateTime!
+  userId: String!
+}
+
+type SubjectModel {
+  color: String!
+  id: ID!
+  name: String!
+  order: Int!
+  units: [UnitModel!]!
+}
+
+input TaskFilterInput {
+  priority: Priority
+  status: TaskStatus
+  subjectId: String
+  unitId: String
+}
+
+type TaskModel {
+  completedAt: DateTime
+  createdAt: DateTime!
+  description: String
+  dueDate: DateTime!
+  id: ID!
+  priority: Priority!
+  startDate: DateTime!
+  status: TaskStatus!
+  subject: SubjectModel!
+  subjectId: String!
+  title: String!
+  unit: UnitModel
+  unitId: String
+  updatedAt: DateTime!
+  userId: String!
+}
+
+enum TaskStatus {
+  DONE
+  IN_PROGRESS
+  TODO
+}
+
+input TemplateItemInput {
+  dayOffset: Int!
+  description: String
+  durationDays: Int! = 1
+  priority: Priority! = MEDIUM
+  subjectName: String!
+  title: String!
+  unitName: String
+}
+
+type TemplateItemModel {
+  dayOffset: Int!
+  description: String
+  durationDays: Int!
+  id: ID!
+  priority: Priority!
+  subjectName: String!
+  title: String!
+  unitName: String
+}
+
+type TemplateModel {
+  createdAt: DateTime!
+  description: String
+  id: ID!
+  items: [TemplateItemModel!]!
+  name: String!
+  userId: String!
+}
+
+type UnitModel {
+  id: ID!
+  name: String!
+  order: Int!
+  subjectId: String!
+}
+
+input UpdateTaskInput {
+  description: String
+  dueDate: DateTime
+  priority: Priority
+  startDate: DateTime
+  status: TaskStatus
+  subjectId: String
+  title: String
+  unitId: String
+}
+
+type UserModel {
+  createdAt: DateTime!
+  email: String!
+  id: ID!
+  name: String!
+}

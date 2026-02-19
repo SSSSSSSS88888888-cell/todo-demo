@@ -1,0 +1,8 @@
+query GetMyStreak {
+  myStreak {
+    id
+    currentStreak
+    longestStreak
+    lastCompletionDate
+  }
+}
